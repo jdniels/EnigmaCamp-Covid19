@@ -44,26 +44,20 @@ export class HomeComponent implements OnInit {
   }
 
   getDataPositif() {
-    this.isloading = true;
     return this.homeService.getDataPositif().subscribe(response => {
       this.dataPositif = response;
-      this.isloading = false;
     }, error => console.log(error));
   }
 
   getDataHealthy() {
-    this.isloading = true;
     return this.homeService.getDataHealthy().subscribe(response => {
       this.dataHealthy = response;
-      this.isloading = false;
     }, error => console.log(error));
   }
 
   getDataDeath() {
-    this.isloading = true;
     return this.homeService.getDataDeath().subscribe(response => {
       this.dataDeath = response;
-      this.isloading = false;
     }, error => console.log(error));
   }
 
