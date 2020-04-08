@@ -1,5 +1,6 @@
 <div class="container" *ngIf="dataHealthy && dataPositif && dataDeath">
   <div class="flex flex-row">
+    <app-skeleton-loader [CWidth]="100" [CHeight]="20"></app-skeleton-loader>
     <app-card [name]="dataPositif.name" [value]="dataPositif.value" backGround="yellow"
               class="w-full md:w1/3 p-4 mx-2"></app-card>
     <app-card [name]="dataHealthy.name" [value]="dataHealthy.value" backGround="green"

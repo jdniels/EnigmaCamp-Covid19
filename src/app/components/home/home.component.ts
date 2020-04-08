@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
   dataGlobal: Global[];
   isloading = true;
   dataPos: any[] = [];
-  datapost = this.dataPos.toString().split(',').join('');
 
   constructor(private homeService: HomeService) {
   }
@@ -48,9 +47,7 @@ export class HomeComponent implements OnInit {
     this.isloading = true;
     return this.homeService.getDataPositif().subscribe(response => {
       this.dataPositif = response;
-      this.dataPos.push(response.value.toString());
       this.isloading = false;
-      console.log(this.dataPos.toString().split('').join(''),'da sob')
     }, error => console.log(error));
   }
 
