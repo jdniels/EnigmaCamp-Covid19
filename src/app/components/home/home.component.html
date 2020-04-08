@@ -1,36 +1,23 @@
-<div class="container">
-  <div class="flex md:flex-row flex-col">
-    <div class="w-full md:w1/3 rounded overflow-hidden shadow-lg p-4 mx-2 text-center bg-red-200" *ngIf="dataPositif">
-      <h1>{{dataPositif.name | uppercase}}</h1>
-      <h4>{{dataPositif.value}}</h4>
-    </div>
-    <div class="w-full md:w1/3 rounded overflow-hidden shadow-lg p-4 mx-2 text-center bg-green-200" *ngIf="dataHealthy">
-      <h1>{{dataHealthy.name | uppercase}}</h1>
-      <h4>{{dataHealthy.value}}</h4>
-    </div>
+<div class="container" *ngIf="dataHealthy && dataPositif && dataDeath">
+  <div class="flex flex-row">
+    <app-card [name]="dataPositif.name" [value]="dataPositif.value" backGround="yellow"
+              class="w-full md:w1/3 p-4 mx-2"></app-card>
+    <app-card [name]="dataHealthy.name" [value]="dataHealthy.value" backGround="green"
+              class="w-full md:w1/3 p-4 mx-2"></app-card>
+    <app-card [name]="dataDeath.name" [value]="dataDeath.value" backGround="red"
+              class="w-full md:w1/3 p-4 mx-2"></app-card>
   </div>
-  <div class="bg-white shadow-md rounded my-6">
-    <table class="text-left w-full border-collapse">
-      <thead>
-      <tr>
-        <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-ligh">No.</th>
-        <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-ligh">Region</th>
-        <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-ligh">Confirmed</th>
-        <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-ligh">Deaths</th>
-        <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-ligh">Recovered</th>
-        <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-ligh">Active</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let data of dataGlobal; let i = index">
-        <td class="border px-4 py-2 text-center">{{i + 1}}</td>
-        <td class="border px-4 py-2">{{data.attributes.Country_Region}}</td>
-        <td class="border px-4 py-2">{{data.attributes.Confirmed}}</td>
-        <td class="border px-4 py-2">{{data.attributes.Deaths}}</td>
-        <td class="border px-4 py-2">{{data.attributes.Recovered}}</td>
-        <td class="border px-4 py-2">{{data.attributes.Active}}</td>
-      </tr>
-      </tbody>
-    </table>
+  <p>{{dataPos.toString().split(',').join('')}}</p>
+  <div class="flex flex-row">
+    <div class="bg-white shadow=lg rounded w-full md:w1/3 p-4 mx-2">
+      <canvas baseChart
+              [datasets]="chartDataSets"
+              [labels]="chartDataLabel"
+              [options]="chartOptions"
+              chartType="pie"
+              [legend]="true"
+      >
+      </canvas>
+    </div>
   </div>
 </div>

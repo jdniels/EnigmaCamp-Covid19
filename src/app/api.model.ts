@@ -1,6 +1,13 @@
-export interface Country {
+export interface GlobalData {
   name: string;
   value: number
+}
+
+export interface Country {
+  name:string
+  sembuh: number
+  meninggal: number
+  positif: number
 }
 
 export interface Provinsi {

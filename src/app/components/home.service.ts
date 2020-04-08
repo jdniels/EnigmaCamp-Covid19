@@ -1,26 +1,38 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, Observer} from 'rxjs';
-import * as Model from '../api.model'
-import Global = WebAssembly.Global;
+import {Observable} from 'rxjs';
+import * as Model from '../api.model';
+
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
-  // tslint:disable-next-line:variable-name
   BASE_URL = '/api/';
-  constructor(private http: HttpClient) { }
 
-  getDataPositif(): Observable<Model.Country> {
-    return this.http.get<Model.Country>(this.BASE_URL + 'positif');
+  constructor(private http: HttpClient) {
   }
-  getDataHealthy(): Observable<Model.Country>{
-      return this.http.get<Model.Country>(this.BASE_URL + 'sembuh')
+
+  getDataIndonesia(): Observable<Model.Country[]> {
+    return this.http.get<Model.Country[]>(this.BASE_URL + 'indonesia');
   }
-  getDataGlobal(): Observable<Model.Global[]>{
-    return this.http.get<Model.Global[]>(this.BASE_URL)
+
+  getDataPositif(): Observable<Model.GlobalData> {
+    return this.http.get<Model.GlobalData>(this.BASE_URL + 'positif');
   }
-  getDataProvinsi(): Observable<Model.Provinsi>{
-    return this.http.get<Model.Provinsi>(this.BASE_URL + '{$country}/{$provinsi}')
+
+  getDataHealthy(): Observable<Model.GlobalData> {
+    return this.http.get<Model.GlobalData>(this.BASE_URL + 'sembuh');
+  }
+
+  getDataDeath(): Observable<Model.GlobalData> {
+    return this.http.get<Model.GlobalData>(this.BASE_URL + 'meninggal');
+  }
+
+  getDataGlobal(): Observable<Model.Global[]> {
+    return this.http.get<Model.Global[]>(this.BASE_URL);
+  }
+
+  getDataProvinsi(): Observable<Model.Provinsi> {
+    return this.http.get<Model.Provinsi>(this.BASE_URL + '{$country}/{$provinsi}');
   }
 }
