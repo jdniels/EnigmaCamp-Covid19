@@ -1,3 +1,5 @@
+import {Observable} from 'rxjs';
+
 export interface GlobalData {
   name: string;
   value: number
@@ -29,4 +31,14 @@ export interface Global {
   Deaths: number
   Recovered: number
   Active: number
+}
+
+export interface Pending<T> {
+  data: Observable<T>
+  status: Observable<Status>
+}
+
+export enum Status {
+  LOADING = 'Loading....',
+  ERROR = 'Error...',
 }

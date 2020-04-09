@@ -9,7 +9,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {ProvinsiComponent} from './components/provinsi/provinsi.component';
 import {AnimateModule} from './animate/animate.module';
 import {CardComponent} from './components/reusable/card/card.component';
-import {NgxSpinnerModule} from 'ngx-spinner';
 import {ChartsModule} from 'ng2-charts';
 import { CardTableComponent } from './components/reusable/card-table/card-table.component';
 
@@ -27,7 +26,6 @@ import { CardTableComponent } from './components/reusable/card-table/card-table.
     AppRoutingModule,
     HttpClientModule,
     AnimateModule,
-    NgxSpinnerModule,
     ChartsModule
   ],
   providers: [],

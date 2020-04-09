@@ -8,14 +8,12 @@ import {Country, Global, GlobalData} from '../../api.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  // @ts-ignore
   dataPositif: GlobalData;
   dataHealthy: GlobalData;
   dataDeath: GlobalData;
   dataIndonesia: Country[];
   dataGlobal: Global[];
-  isloading = true;
-  dataPos: any[] = [];
+  showSpinner: boolean = false;
 
   constructor(private homeService: HomeService) {
   }
@@ -40,32 +38,34 @@ export class HomeComponent implements OnInit {
   getDataIndonesia() {
     return this.homeService.getDataIndonesia().subscribe(respone => {
       this.dataIndonesia = respone;
+      this.showSpinner = true;
     });
   }
 
   getDataPositif() {
-    return this.homeService.getDataPositif().subscribe(response => {
-      this.dataPositif = response;
-    }, error => console.log(error));
+    return this.homeService.getDataPositif().subscribe(respone => {
+      this.dataPositif = respone;
+      this.showSpinner = true;
+    });
   }
 
   getDataHealthy() {
     return this.homeService.getDataHealthy().subscribe(response => {
       this.dataHealthy = response;
+      this.showSpinner = true;
     }, error => console.log(error));
   }
 
   getDataDeath() {
     return this.homeService.getDataDeath().subscribe(response => {
-      this.dataDeath = response;
+      this.dataDeath = response
+      this.showSpinner = true;
     }, error => console.log(error));
   }
 
   getDataGlobal() {
-    this.isloading = true;
     return this.homeService.getDataGlobal().subscribe(response => {
       this.dataGlobal = response;
-      this.isloading = false;
     }, error => console.log(error));
   }
 }
