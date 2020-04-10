@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HomeService} from '../home.service';
 import {Country, Global, GlobalData} from '../../api.model';
+import {catchError, map} from 'rxjs/operators';
+import {error} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-home',
@@ -43,11 +45,14 @@ export class HomeComponent implements OnInit {
   }
 
   getDataPositif() {
-    return this.homeService.getDataPositif().subscribe(respone => {
-      this.dataPositif = respone;
+    return this.homeService.getDataPositif().subscribe((response: any) => {
+      this.dataPositif = {...response};
       this.showSpinner = true;
-    });
+    }, error => {
+      alert('Error')
+    })
   }
+
 
   getDataHealthy() {
     return this.homeService.getDataHealthy().subscribe(response => {

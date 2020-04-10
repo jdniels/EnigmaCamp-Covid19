@@ -1,10 +1,9 @@
-<div class="container" >
+<div class="container" *ngIf="dataPositif">
+  <h1 class="text-center uppercase">Data Global</h1>
   <div class="flex flex-row">
-    <app-skeleton-loader *ngIf="!showSpinner" CHeight="100" CMargin="2"></app-skeleton-loader>
-    <!--  INI GW MANGGIL APP SKELETON DI HOME COMPONENT, APP CARD ITU COMPONENT DYNAMIC/ REUSABLE  -->
+    <app-skeleton-loader *ngIf="!showSpinner" CWidth="250" CHeight="50" CMargin="2"></app-skeleton-loader>
     <app-card [name]="dataPositif.name" [value]="dataPositif.value" backGround="yellow"
               class="w-full md:w1/3 p-4 mx-2" *ngIf="showSpinner"></app-card>
-    <!--  COMPONENT CARDNYA ^^^^^^  -->
     <app-skeleton-loader *ngIf="!showSpinner" CWidth="250" CHeight="50" CMargin="2"></app-skeleton-loader>
     <app-card [name]="dataHealthy.name" [value]="dataHealthy.value" backGround="green"
               class="w-full md:w1/3 p-4 mx-2" *ngIf="showSpinner"></app-card>
@@ -12,23 +11,4 @@
     <app-card [name]="dataDeath.name" [value]="dataDeath.value" backGround="red"
               class="w-full md:w1/3 p-4 mx-2" *ngIf="showSpinner"></app-card>
   </div>
-  <div class="flex flex-row">
-    <div class="bg-white shadow=lg rounded w-full md:w1/3 p-4 mx-2">
-      <canvas baseChart
-              [datasets]="chartDataSets"
-              [labels]="chartDataLabel"
-              [options]="chartOptions"
-              chartType="pie"
-              [legend]="true"
-      >
-      </canvas>
-    </div>
-  </div>
 </div>
-
-
-<!--<h1>Data</h1>-->
-<!--<app-skeleton-loader *ngIf="showSpinner" [CHeight]="10" [CWidth]="20"></app-skeleton-loader>-->
-<!--<p *ngIf="!showSpinner">{{dataPositif.name}}</p>-->
-
-<!--<p *ngIf="!showSpinner">{{dataPositif.value}}</p>-->
