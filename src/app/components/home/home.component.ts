@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HomeService} from '../home.service';
-import {Country, Global, GlobalData} from '../../api.model';
+import {Country, Global, GlobalData, GlobalCountData} from '../../api.model';
 import {catchError, map} from 'rxjs/operators';
 import {error} from '@angular/compiler/src/util';
 
@@ -15,18 +15,7 @@ export class HomeComponent implements OnInit {
   dataDeath: GlobalData;
   dataIndonesia: Country[];
   dataGlobal: Global[];
-  showSpinner: boolean = false;
-
-  constructor(private homeService: HomeService) {
-  }
-
-  ngOnInit(): void {
-    this.getDataPositif();
-    this.getDataHealthy();
-    this.getDataDeath();
-    this.getDataGlobal();
-    this.getDataIndonesia();
-  }
+  isLoading = true;
 
   public chartDataSets: Array<any> = [
     {data: [135693, 205696, 70000]}
@@ -37,17 +26,47 @@ export class HomeComponent implements OnInit {
     responsive: true
   };
 
+  constructor(private homeService: HomeService) {
+  }
+
+  ngOnInit(): void {
+    this.homeService.getGlobalCount()
+      .subscribe((globalData: GlobalCountData) => {
+        const { positive, negative, death } = globalData;
+        this.dataPositif = positive;
+        this.dataHealthy = negative;
+        this.dataDeath = death;
+        this.chartDataSets = [
+          {
+            data: [
+              Number(positive.value.replace(/[^0-9\.-]+/g, '')),
+              Number(negative.value.replace(/[^0-9\.-]+/g, '')),
+              Number(death.value.replace(/[^0-9\.-]+/g, '')),
+            ],
+          },
+        ];
+
+        this.isLoading = false;
+      });
+
+    // this.getDataPositif();
+    // this.getDataHealthy();
+    // this.getDataDeath();
+    // this.getDataGlobal();
+    // this.getDataIndonesia();
+  }
+
   getDataIndonesia() {
     return this.homeService.getDataIndonesia().subscribe(respone => {
       this.dataIndonesia = respone;
-      this.showSpinner = true;
+      this.isLoading = true;
     });
   }
 
   getDataPositif() {
     return this.homeService.getDataPositif().subscribe((response: any) => {
       this.dataPositif = {...response};
-      this.showSpinner = true;
+      this.isLoading = true;
     }, error => {
       alert('Error')
     })
@@ -57,14 +76,14 @@ export class HomeComponent implements OnInit {
   getDataHealthy() {
     return this.homeService.getDataHealthy().subscribe(response => {
       this.dataHealthy = response;
-      this.showSpinner = true;
+      this.isLoading = true;
     }, error => console.log(error));
   }
 
   getDataDeath() {
     return this.homeService.getDataDeath().subscribe(response => {
       this.dataDeath = response
-      this.showSpinner = true;
+      this.isLoading = true;
     }, error => console.log(error));
   }
 

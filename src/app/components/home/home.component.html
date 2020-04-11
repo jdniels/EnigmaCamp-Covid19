@@ -1,14 +1,8 @@
 <div class="container">
   <h1 class="text-center uppercase">Data Global</h1>
   <div class="flex flex-row">
-    <app-skeleton-loader *ngIf="!showSpinner" CWidth="250" CHeight="50" CMargin="2"></app-skeleton-loader>
-    <app-card [name]="dataPositif.name" [value]="dataPositif.value" backGround="yellow"
-              class="w-full md:w1/3 p-4 mx-2" *ngIf="showSpinner"></app-card>
-    <app-skeleton-loader *ngIf="!showSpinner" CWidth="250" CHeight="50" CMargin="2"></app-skeleton-loader>
-    <app-card [name]="dataHealthy.name" [value]="dataHealthy.value" backGround="green"
-              class="w-full md:w1/3 p-4 mx-2" *ngIf="showSpinner"></app-card>
-    <app-skeleton-loader *ngIf="!showSpinner" CWidth="250" CHeight="50" CMargin="2"></app-skeleton-loader>
-    <app-card [name]="dataDeath.name" [value]="dataDeath.value" backGround="red"
-              class="w-full md:w1/3 p-4 mx-2" *ngIf="showSpinner"></app-card>
+    <app-card [data]="dataPositif" [isLoading]="isLoading" background="yellow" class="w-full md:w1/3"></app-card>
+    <app-card [data]="dataHealthy" [isLoading]="isLoading" background="green" class="w-full md:w1/3"></app-card>
+    <app-card [data]="dataDeath" [isLoading]="isLoading" background="red" class="w-full md:w1/3"></app-card>
   </div>
 </div>

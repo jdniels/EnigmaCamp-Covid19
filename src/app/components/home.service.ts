@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Observer, forkJoin} from 'rxjs';
 import * as Model from '../api.model';
 
 @Injectable({
@@ -34,5 +34,24 @@ export class HomeService {
 
   getDataProvinsi(): Observable<Model.Provinsi> {
     return this.http.get<Model.Provinsi>(this.BASE_URL + '{$country}/{$provinsi}');
+  }
+
+  getGlobalCount(): Observable<Model.GlobalCountData> {
+    return new Observable((observer: Observer<Model.GlobalCountData>) => {
+      forkJoin([
+        this.getDataPositif(),
+        this.getDataHealthy(),
+        this.getDataDeath(),
+      ]).subscribe((results) => {
+        const globalCount: Model.GlobalCountData = {
+          positive: results[0],
+          negative: results[1],
+          death: results[2],
+        };
+
+        observer.next(globalCount);
+      },
+      (error) => console.error);
+    });
   }
 }
